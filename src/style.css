@@ -1,0 +1,16 @@
+/* *********** Form Label * color start ************* */
+.allLabels {
+    color: red !important;
+    font-weight: 700 !important;
+  }
+
+  .error-message {
+  
+    color: #e85347;
+    font-size: 11px;
+    font-style: italic;
+  }
+  
+
+
+  /* *********** Form Label * color end ************* */
