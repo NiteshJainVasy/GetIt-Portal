@@ -1,16 +1,65 @@
 /* *********** Form Label * color start ************* */
 .allLabels {
-    color: red !important;
-    font-weight: 700 !important;
+  color: red !important;
+  font-weight: 700 !important;
+}
+
+.error-message {
+  color: #e85347;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.tableFilterSearching {
+  font-weight: normal !important;
+}
+
+/* *********** Form Label * color end ************* */
+/* width */
+.custom_res::-webkit-scrollbar {
+  height: 5px;
+}
+
+/* Track */
+.custom_res::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+/* Handle */
+.custom_res::-webkit-scrollbar-thumb {
+  background: #bfc9d6;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.custom_res::-webkit-scrollbar-thumb:hover {
+  background: #bfc9d6;
+}
+
+/* custom */
+.custom-i {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+}
+.custom-icon {
+  color: #fff;
+
+  font-size: 22px;
+  padding: 30px;
+  border: none;
+  border-radius: 5px;
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+  .custom-i {
+    right: 10px;
+    top: 10px;
   }
 
-  .error-message {
-  
-    color: #e85347;
-    font-size: 11px;
-    font-style: italic;
+  .custom-icon {
+    padding: 20px;
+    font-size: 20px;
   }
-  
-
-
-  /* *********** Form Label * color end ************* */
+}

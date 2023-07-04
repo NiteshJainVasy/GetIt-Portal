@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Card, UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from "reactstrap";
 import { Icon } from "../../../Component";
-import { TrafficSourcesChart } from "../../charts/e-commerce/EcomCharts";
 
-const TrafficSources = () => {
+
+const TrafficSources = ({title, attribute, componentType,legendItems  }) => {
   const [data, setData] = useState("7");
   return (
     <Card className="card-full overflow-hidden">
@@ -11,7 +11,7 @@ const TrafficSources = () => {
         <div className="card-inner flex-grow-1">
           <div className="card-title-group mb-4">
             <div className="card-title">
-              <h6 className="title">Traffic Sources</h6>
+              <h6 className="title">{title}</h6>
             </div>
             <div className="card-tools">
               <UncontrolledDropdown>
@@ -68,46 +68,22 @@ const TrafficSources = () => {
           </div>
           <div className="data-group">
             <div className="nk-ecwg4-ck">
-              <TrafficSourcesChart state={data} />
+              {componentType}
             </div>
             <ul className="nk-ecwg4-legends">
-              <li>
-                <div className="title">
-                  <span className="dot dot-lg sq" style={{ background: "#9cabff" }}></span>
-                  <span>Organic Search</span>
-                </div>
-                <div className="amount amount-xs">{data === "7" ? "2505" : data === "15" ? "3505" : "4000"}</div>
-              </li>
-              <li>
-                <div className="title">
-                  <span className="dot dot-lg sq" style={{ background: "#ffa9ce" }}></span>
-                  <span>Referrals</span>
-                </div>
-                <div className="amount amount-xs">{data === "7" ? "482" : data === "15" ? "800" : "1250"}</div>
-              </li>
-              <li>
-                <div className="title">
-                  <span className="dot dot-lg sq" style={{ background: "#b8acff" }}></span>
-                  <span>Social Media</span>
-                </div>
-                <div className="amount amount-xs">{data === "7" ? "859" : data === "15" ? "1650" : "3250"}</div>
-              </li>
-              <li>
-                <div className="title">
-                  <span className="dot dot-lg sq" style={{ background: "#f9db7b" }}></span>
-                  <span>Others</span>
-                </div>
-                <div className="amount amount-xs">{data === "7" ? "138" : data === "15" ? "150" : "250"}</div>
-              </li>
+              {legendItems.map((item, index) => (
+                <li key={index}>
+                  <div className="title">
+                    <span className="dot dot-lg sq" style={{ background: item.color }}></span>
+                    <span>{item.label}</span>
+                  </div>
+                  <div className="amount amount-xs">{item.data}</div>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
-        <div className="card-inner card-inner-md bg-light">
-          <div className="card-note">
-            <Icon className="info-fill"></Icon>
-            <span>Traffic channels have beed generating the most traffics over past days.</span>
-          </div>
-        </div>
+     
       </div>
     </Card>
   );

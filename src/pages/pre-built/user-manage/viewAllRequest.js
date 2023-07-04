@@ -26,8 +26,8 @@ const ViewRequest = ({ closeModal, modal, selectedId, selectedData, setSelectedD
   function getDotColor(status) {
     let dotColor = "";
 
-    if (status === "Approved") {
-      dotColor = "primary";
+    if (status === "Approve") {
+      dotColor = "success";
     } else if (status === "Pending") {
       dotColor = "warning";
     } else if (status === "Cancel") {
@@ -42,8 +42,8 @@ const ViewRequest = ({ closeModal, modal, selectedId, selectedData, setSelectedD
   function getBadgeColor(status) {
     let badgeColor = "";
 
-    if (status === "Approved") {
-      badgeColor = "primary";
+    if (status === "Approve") {
+      badgeColor = "success";
     } else if (status === "Pending") {
       badgeColor = "warning";
     } else if (status === "Cancel") {

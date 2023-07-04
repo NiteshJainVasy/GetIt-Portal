@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem } from "reactstrap";
 import {
   Block,
@@ -29,7 +30,9 @@ import { Link } from "react-router-dom";
 import { UserContext } from "./UserContext";
 import EditModal from "./EditModal";
 import TicketModule from "./AddModal";
-import ViewRequest from "./viewAllRequest";
+import ViewRequest from "./ViewAllRequest";
+import { Row } from "reactstrap";
+import { getAllTickets, createTickets } from "../../../reducers/ticketRequest.reducer";
 
 const requestData = [
   {
@@ -94,6 +97,7 @@ const requestData = [
 
 const UserListDefaultPage = () => {
   const { contextData } = useContext(UserContext);
+  const dispatch = useDispatch();
   const [data, setData] = contextData;
 
   const [sm, updateSm] = useState(false);
@@ -101,31 +105,19 @@ const UserListDefaultPage = () => {
 
   const [modal, setModal] = useState(false);
   const [editId, setEditedId] = useState();
-
+  const [searchStr, setSearchStr] = useState(requestData);
   const [files, setFiles] = useState([]);
-  const [selectedType, setSelectedType] = useState("Hardware");
+  const [selectedType, setSelectedType] = useState("");
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     priority: "",
-    type: "",
-    reportingHead: "",
-    file: "",
-    status: "",
-    softwareType: "",
-    hardwareType: "",
+    type: "HW",
+    reportingManager: "Janam Soni",
+    status: "pending",
+    subType: "",
   });
-  const [editFormData, setEditFormData] = useState({
-    title: "",
-    description: "",
-    priority: "",
-    type: "",
-    reportingHead: "",
-    file: "",
-    status: "",
-    softwareType: "",
-    hardwareType: "",
-  });
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(10);
 
@@ -174,9 +166,9 @@ const UserListDefaultPage = () => {
       description: "",
       priority: "",
       type: "",
-      reportingHead: "",
+      reportingHead: "Janam Soni",
       file: "",
-      status: "",
+      //status: "",
       softwareType: "",
       hardwareType: "",
     });
@@ -192,73 +184,36 @@ const UserListDefaultPage = () => {
 
   // submit function to add a new item
   const onFormSubmit = (submitData) => {
-    const { name, email, balance, phone } = submitData;
-    let submittedData = {
-      id: data.length + 1,
-      avatarBg: "purple",
-      name: name,
-      role: "Customer",
-      email: email,
-      balance: balance,
-      phone: phone,
-      emailStatus: "success",
-      kycStatus: "alert",
-      lastLogin: "10 Feb 2020",
-      status: formData.status,
-      country: "Bangladesh",
-    };
-    setData([submittedData, ...data]);
+    const {
+      title,
+      description,
+      priority,
+      type,
+      reportingManager,
+
+      subType,
+    } = submitData;
+
+    alert("onFormSubmitonFormSubmit");
+    debugger;
+
+    dispatch(
+      createTickets({
+        ticketId: 0,
+        createdBy: "nitesh",
+        status: formData.status,
+        title: formData.title,
+        description: formData.description,
+        priority: formData.priority,
+        type: formData.type,
+        reportingManager: formData.reportingManager,
+        subType: formData.subType,
+      })
+    );
     resetForm();
     setModal(false);
   };
 
-  // submit function to update a new item
-  const onEditSubmit = (submitData) => {
-    const { name, email, phone } = submitData;
-    let submittedData;
-    let newitems = data;
-    newitems.forEach((item) => {
-      if (item.id === editId) {
-        submittedData = {
-          id: item.id,
-          avatarBg: item.avatarBg,
-          name: name,
-          image: item.image,
-          role: item.role,
-          email: email,
-          balance: editFormData.balance,
-          phone: phone,
-          emailStatus: item.emailStatus,
-          kycStatus: item.kycStatus,
-          lastLogin: item.lastLogin,
-          status: editFormData.status,
-          country: item.country,
-        };
-      }
-    });
-    let index = newitems.findIndex((item) => item.id === editId);
-    newitems[index] = submittedData;
-    setModal(false);
-  };
-
-  // function that loads the want to editted data
-  const onEditClick = (id) => {
-    data.forEach((item) => {
-      if (item.id === id) {
-        setEditFormData({
-          name: item.name,
-          email: item.email,
-          status: item.status,
-          phone: item.phone,
-          balance: item.balance,
-        });
-        setModal(true);
-        setEditedId(id);
-      }
-    });
-  };
-
-  // function to change to suspend property for an item
   const suspendUser = (id) => {
     let newData = data;
     let index = newData.findIndex((item) => item.id === id);
@@ -482,7 +437,6 @@ const UserListDefaultPage = () => {
 
         <TicketModule
           title={selectedData ? "Update Ticket" : "Add Ticket"}
-          selectedData={selectedData}
           modal={modal}
           formData={formData}
           setFormData={setFormData}
@@ -493,6 +447,9 @@ const UserListDefaultPage = () => {
           setFiles={setFiles}
           setSelectedType={setSelectedType}
           selectedType={selectedType}
+          selectedId={selectedId}
+          setSelectedData={setSelectedData}
+          selectedData={selectedData}
         />
 
         <Block size="lg">
@@ -500,7 +457,6 @@ const UserListDefaultPage = () => {
             <ReactDataTable
               data={requestData}
               columns={requestColumns}
-              //  handleFilterBtn={handleFilterBtn}
               pagination
               filterButtonShow
               className="nk-tb-list"

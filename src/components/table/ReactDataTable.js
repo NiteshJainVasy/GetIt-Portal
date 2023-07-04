@@ -4,6 +4,7 @@ import exportFromJSON from "export-from-json";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Col, Modal, ModalBody, Row, Button } from "reactstrap";
 import { DataTablePagination } from "../Component";
+import "../../../src/style.css";
 import {
   Block,
   BlockHead,
@@ -150,36 +151,28 @@ const ReactDataTable = ({
   };
 
   return (
-    <div className={`dataTables_wrapper dt-bootstrap4 no-footer ${className ? className : ""}`}>
-      <Row className={`justify-between g-2 ${actions ? "with-export" : ""} ${filterButtonShow ? "with-filter" : ""}`}>
-        <Col className="col-4 text-start" sm="2">
-          <div id="DataTables_Table_0_filter" className="dataTables_filter">
-            <label>
+    <div className={columns.length > 6 ? "table-responsive custom_res" : ""}>
+      <div className={` mb-1 dataTables_wrapper dt-bootstrap4 no-footer ${className ? className : ""}`}>
+        <Row className={`justify-between g-2 ${actions ? "with-export" : ""} ${filterButtonShow ? "with-filter" : ""}`}>
+          <Col className="col-4 text-start" sm="2">
+            <div id="DataTables_Table_0_filter" className="dataTables_filter">
               <input
                 type="search"
                 className="form-control form-control-sm"
                 placeholder="Search by name"
                 onChange={(ev) => setSearchText(ev.target.value)}
               />
-            </label>
-          </div>
-        </Col>
+            </div>
+          </Col>
 
-        <Col className="col-3 text-start" sm="2">
-          <div id="DataTables_Table_0_filter" className="dataTables_filter">
-            {filterButtonShow && (
-              <Button onClick={handleFilterBtn} className="toggle d-none d-md-inline-flex" color="primary">
-                <Icon name="filter-alt"></Icon>
-                <span>Filter</span>
-              </Button>
-            )}
-          </div>
-        </Col>
-
-        <Col className="col-5 text-end" sm="8">
-          <div className="datatable-filter">
-            <div className="d-flex justify-content-end g-2">
-              {actions && <Export data={data} />}
+          <Col className="col-3 text-start" sm="2">
+            <div id="DataTables_Table_0_filter" className="dataTables_filter d-flex justify-content-between">
+              {filterButtonShow && (
+                <Button onClick={handleFilterBtn} className="toggle d-none d-md-inline-flex" color="primary">
+                  <Icon name="filter-alt"></Icon>
+                  <span>Filter</span>
+                </Button>
+              )}
               <div className="dataTables_length" id="DataTables_Table_0_length">
                 <label>
                   <span className="d-none d-sm-inline-block">Show</span>
@@ -200,91 +193,100 @@ const ReactDataTable = ({
                 </label>
               </div>
             </div>
-          </div>
-        </Col>
-      </Row>
-      {showFilterDiv && (
-        <Row className="gy-4 mt-0">
-          <Col sm="6" lg="3">
-            <div className="form-group">
-              <label className="font-weight-bold">Type</label>
-              <input
-                type="search"
-                className="form-control form-control-sm"
-                id="searchByName1"
-                placeholder="Search by name"
-                onChange={(ev) => setSearchText(ev.target.value)}
-              />
-            </div>
           </Col>
-          <Col sm="6" lg="3">
-            <div className="form-group">
-              <label className="font-weight-bold">Priority</label>
-              <input
-                type="search"
-                className="form-control form-control-sm"
-                id="searchByName2"
-                placeholder="Search by name"
-                onChange={(ev) => setSearchText(ev.target.value)}
-              />
-            </div>
-          </Col>
-          <Col sm="6" lg="3">
-            <div className="form-group">
-              <label className="font-weight-bold">Created At </label>
-              <input
-                type="search"
-                className="form-control form-control-sm"
-                id="searchByName3"
-                placeholder="Search by name"
-                onChange={(ev) => setSearchText(ev.target.value)}
-              />
-            </div>
-          </Col>
-          <Col sm="6" lg="3">
-            <div className="form-group">
-              <label className="font-weight-bold">Created By</label>
-              <input
-                type="search"
-                className="form-control form-control-sm"
-                id="searchByName4"
-                placeholder="Search by name"
-                onChange={(ev) => setSearchText(ev.target.value)}
-              />
+
+          <Col className="col-5 text-end" sm="8">
+            <div className="datatable-filter">
+              <div className="d-flex justify-content-end g-2">
+                {actions && <Export data={data} />}
+                
+              </div>
             </div>
           </Col>
         </Row>
-      )}
 
-      <DataTable
-        data={tableData}
-        columns={columns}
-        className={className}
-        selectableRows={selectableRows}
-        selectableRowsComponent={CustomCheckbox}
-        expandableRowsComponent={ExpandableRowComponent}
-        expandableRows={mobileView}
-        noDataComponent={<div className="p-2">There are no records found</div>}
-        //  handleFilterBtn={handleFilterBtn}
-        sortIcon={
-          <div>
-            <span>&darr;</span>
-            <span>&uarr;</span>
-          </div>
-        }
-        pagination={pagination}
-        paginationComponent={({ currentPage, rowsPerPage, rowCount, onChangePage, onChangeRowsPerPage }) => (
-          <DataTablePagination
-            customItemPerPage={rowsPerPageS}
-            itemPerPage={rowsPerPage}
-            totalItems={rowCount}
-            paginate={onChangePage}
-            currentPage={currentPage}
-            onChangeRowsPerPage={onChangeRowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-          />
+        {showFilterDiv && (
+          <Row className="gy-4 mt-0">
+            <Col sm="6" lg="3">
+              <div className="form-group">
+                <label className="tableFilterSearching">Type</label>
+                <input
+                  type="search"
+                  className="form-control form-control-sm"
+                  id="searchByName1"
+                  placeholder="Search by name"
+                  onChange={(ev) => setSearchText(ev.target.value)}
+                />
+              </div>
+            </Col>
+            <Col sm="6" lg="3">
+              <div className="form-group">
+                <label className="font-weight-bold">Priority</label>
+                <input
+                  type="search"
+                  className="form-control form-control-sm"
+                  id="searchByName2"
+                  placeholder="Search by name"
+                  onChange={(ev) => setSearchText(ev.target.value)}
+                />
+              </div>
+            </Col>
+            <Col sm="6" lg="3">
+              <div className="form-group">
+                <label className="font-weight-bold">Created At </label>
+                <input
+                  type="search"
+                  className="form-control form-control-sm"
+                  id="searchByName3"
+                  placeholder="Search by name"
+                  onChange={(ev) => setSearchText(ev.target.value)}
+                />
+              </div>
+            </Col>
+            <Col sm="6" lg="3">
+              <div className="form-group">
+                <label className="font-weight-bold">Created By</label>
+                <input
+                  type="search"
+                  className="form-control form-control-sm"
+                  id="searchByName4"
+                  placeholder="Search by name"
+                  onChange={(ev) => setSearchText(ev.target.value)}
+                />
+              </div>
+            </Col>
+          </Row>
         )}
-      ></DataTable>
+
+        <DataTable
+          data={tableData}
+          columns={columns}
+          className={className}
+          selectableRows={selectableRows}
+          selectableRowsComponent={CustomCheckbox}
+          expandableRowsComponent={ExpandableRowComponent}
+          expandableRows={mobileView}
+          noDataComponent={<div className="p-2">There are no records found</div>}
+          sortIcon={
+            <div>
+              <span>&darr;</span>
+              <span>&uarr;</span>
+            </div>
+          }
+          pagination={pagination}
+          paginationComponent={({ currentPage, rowsPerPage, rowCount, onChangePage, onChangeRowsPerPage }) => (
+            <DataTablePagination
+              customItemPerPage={rowsPerPageS}
+              itemPerPage={rowsPerPage}
+              totalItems={rowCount}
+              paginate={onChangePage}
+              currentPage={currentPage}
+              onChangeRowsPerPage={onChangeRowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+            />
+          )}
+        ></DataTable>
+      </div>
     </div>
   );
 };

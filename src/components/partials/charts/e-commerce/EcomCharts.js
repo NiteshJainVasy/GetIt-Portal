@@ -17,6 +17,7 @@ import {
   trafficSourcesSet4,
   trafficSourcesSet3,
   storeVisitors,
+  agents,
 } from "./Data";
 
 export const TotalSalesChart = () => {
@@ -381,6 +382,59 @@ export const TrafficSourcesChart = ({ state }) => {
     />
   );
 };
+
+
+
+export const Agents = ({ state }) => {
+  const [data, setData] = useState(agents);
+  useEffect(() => {
+    if (state === "7") {
+      setData(agents);
+    } else if (state === "15") {
+      setData(agents);
+    } else {
+      setData(agents);
+    }
+  }, [state]);
+  return (
+    <Doughnut
+      data={data}
+      options={{
+        plugins: {
+          legend: {
+              display: false,
+          },
+          tooltip: {
+              enabled: true,
+              displayColors: false,
+              backgroundColor: "#1c2b46",
+              titleFont: {
+                size: '13px',
+              },
+              titleColor: "#fff",
+              titleMarginBottom: 6,
+              bodyColor: "#fff",
+              bodyFont: {
+                size: '12px',
+              },
+              bodySpacing: 4,
+              padding: 10,
+              footerMarginTop: 0,
+              callbacks: {
+                label: function (context) {
+                    return context.parsed.y;
+                },
+              },
+          },
+        },
+        rotation: 1,
+        cutoutPercentage: 40,
+        maintainAspectRatio: false,
+      }}
+    />
+  );
+};
+
 
 export const StoreVisitorsChart = () => {
   return (

@@ -487,3 +487,22 @@ export var storeVisitors = {
     },
   ],
 };
+
+
+
+
+
+
+export var agents = {
+  labels: ["Vishal Mevada ", "Anirudh Chavda", "Other" ],
+  dataUnit: "People",
+  legend: false,
+  datasets: [
+    {
+      borderColor: "#fff",
+      backgroundColor: ["#FF6666", "#66FF66", "#6666FF"],
+   
+      data: [500,200, 200],
+    },
+  ],
+};

@@ -83,14 +83,27 @@ const menu = [
   //     },
   //   ],
   // },
+
   {
-    icon: "users-fill",
-    text: "User Manage",
+    icon: "dashboard-fill",
+    text: "Dashboards",
+    active: false,
+    link: "/ecommerce/index",
+    
+  },
+
+  {
+    // icon: "users-fill",
+    // text: "User Manage",
+    icon: "ticket",
+    text: "Ticker Management",
     active: false,
     subMenu: [
       {
-        text: "User List - Default",
-        link: "/user-list-default",
+        // text: "User List - Default",
+        // link: "/user-list-default",
+        text: "Ticket Lists",
+        link: "/ticket-lists-default",
       },
       // {
       //   text: "User List - Regular",
@@ -112,6 +125,18 @@ const menu = [
       //   text: "User Contact - Card",
       //   link: "/user-contact-card",
       // },
+    ],
+  },
+
+  {
+    icon: "tile-thumb-fill",
+    text: "TicketTypes",
+    active: false,
+    subMenu: [
+      {
+        text: "TicketTypes List",
+        link: "/ticketTypeList",
+      },
     ],
   },
 
